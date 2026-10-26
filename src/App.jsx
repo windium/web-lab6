@@ -31,7 +31,20 @@ function App() {
   return (
     <main>
       <h1>Post Dashboard</h1>
-      <PostList posts={posts} />
+
+      {loading && <p className="status">Loading posts...</p>}
+
+      {!loading && error && (
+        <p className="status error" role="alert">
+          Could not load posts: {error}
+        </p>
+      )}
+
+      {!loading && !error && posts.length === 0 && (
+        <p className="status">No posts found.</p>
+      )}
+
+      {!loading && !error && posts.length > 0 && <PostList posts={posts} />}
     </main>
   );
 }
